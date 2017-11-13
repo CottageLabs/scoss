@@ -1,0 +1,4 @@
+[submodule "vendor/edges"]
+	path = vendor/edges
+	url = https://github.com/CottageLabs/edges.git
+	branch = develop
