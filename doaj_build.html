@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SCOSS Testing Site - Built JS Version</title>
+
+    <link rel="stylesheet" href="/release/scoss.dep.css">
+    <link rel="stylesheet" href="/release/scoss.min.css">
+
+</head>
+<body>
+
+<div class="container"><div class="content">
+    <div class="row"><div class="col-md-12">DOAJ</div></div>
+    <div id="service_provider_page"></div>
+</div></div>
+
+<script type="text/javascript" src="/release/scoss.dep.js"></script>
+<script type="text/javascript" src="/release/scoss.min.js"></script>
+
+<script type="application/javascript">
+    jQuery(document).ready(function($) {
+        scoss.makeServiceProviderPage({
+            selector: "#service_provider_page",
+            service_registry : "http://localhost:8000/data/testservice.csv",
+            master_data : "http://localhost:8000/data/testmaster.csv",
+            service_id : "DOAJ"
+        });
+    });
+</script>
+
+</body>
+</html>
