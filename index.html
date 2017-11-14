@@ -3,8 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>SCOSS Testing Site</title>
+
+    <link rel="stylesheet" href="/vendor/edges/vendor/jquery-ui-1.11.1/jquery-ui.css">
+    <link rel="stylesheet" href="/vendor/edges/vendor/bootstrap-3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/edges/vendor/nvd3-1.8.1/nv.d3.css">
+    <link rel="stylesheet" href="/src/css/scoss_edges.css">
+
 </head>
 <body>
+
+<div class="container"><div class="content">
+    <div class="row"><div class="col-md-12">DOAJ</div></div>
+    <div id="service_provider_page"></div>
+</div></div>
+
+<script type="text/javascript" src="/vendor/edges/vendor/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/vendor/edges/vendor/jquery-ui-1.11.1/jquery-ui.js"></script>
+<script type="text/javascript" src="/vendor/edges/vendor/select2-3.5.1/select2.min.js"></script>
+<script type="text/javascript" src="/vendor/edges/vendor/d3-3.5.17/d3.min.js"></script>
+<script type="text/javascript" src="/vendor/edges/vendor/nvd3-1.8.1/nv.d3.js"></script>
+<script type="text/javascript" src="/vendor/edges/vendor/PapaParse-4.1.2/papaparse.min.js"></script>
+
+<!-- <script type="text/javascript" src="/vendor/edges/src/es.js"></script> -->
+<script type="text/javascript" src="/vendor/edges/src/edges.jquery.js"></script>
+<script type="text/javascript" src="/vendor/edges/src/edges.js"></script>
+<script type="text/javascript" src="/vendor/edges/src/edges.csv.js"></script>
+
+<script type="text/javascript" src="/vendor/edges/src/components/charts.js"></script>
+<script type="text/javascript" src="/vendor/edges/src/components/tables.js"></script>
+
+<script type="text/javascript" src="/vendor/edges/src/renderers/nvd3.edges.js"></script>
+<script type="text/javascript" src="/src/js/scoss_edges.js"></script>
+
+<script type="application/javascript">
+jQuery(document).ready(function($) {
+    scoss.makeServiceProviderPage({
+        selector: "#service_provider_page",
+        service_registry : "http://localhost:8000/data/testservice.csv",
+        master_data : "http://localhost:8000/data/testmaster.csv",
+        service_id : "DOAJ"
+    });
+});
+</script>
 
 </body>
 </html>
