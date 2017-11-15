@@ -1,3 +1,9 @@
 .scoss-spp-continent {
     height: 400px;
 }
+.edges-loading_io-renderer-container {
+    text-align: center;
+}
+.edges-loading_io-renderer-bar {
+    margin: auto;
+}
