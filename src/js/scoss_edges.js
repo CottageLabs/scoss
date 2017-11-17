@@ -21,6 +21,16 @@ var scoss = {
                     field: "Total Paid (EUR)"
                 }),
                 edges.csv.newTermsAggregation({
+                    name : "country",
+                    field: "Funder Country",
+                    nested : [
+                        edges.csv.newSumAggregation({
+                            name: "total_committed",
+                            field: "Funding Committed (EUR)"
+                        })
+                    ]
+                }),
+                edges.csv.newTermsAggregation({
                     name : "continent",
                     field: "Funder Continent",
                     nested : [
@@ -52,14 +62,8 @@ var scoss = {
     },
 
     progressCommitted : function(component) {
-        var results = false;
         var aggs = component.edge.resources.master_aggregations;
-        for (var i = 0; i < aggs.length; i++) {
-            if (aggs[i].name === "total_committed") {
-                results = aggs[i];
-                break;
-            }
-        }
+        var results = aggs.total_committed;
 
         var provider = component.edge.resources.service_provider;
         var parser = edges.numParse();
@@ -81,14 +85,8 @@ var scoss = {
     },
 
     progressPaid : function(component) {
-        var results = false;
         var aggs = component.edge.resources.master_aggregations;
-        for (var i = 0; i < aggs.length; i++) {
-            if (aggs[i].name === "total_paid") {
-                results = aggs[i];
-                break;
-            }
-        }
+        var results = aggs.total_paid;
 
         var provider = component.edge.resources.service_provider;
         var parser = edges.numParse();
@@ -120,22 +118,37 @@ var scoss = {
         }
         return {pc: pc, x: total, y : target};
     },
-    
-    continentDF : function(chart) {
-        var results = false;
+
+    countryDF : function(chart) {
         var aggs = chart.edge.resources.master_aggregations;
-        for (var i = 0; i < aggs.length; i++) {
-            if (aggs[i].name === "continent") {
-                results = aggs[i];
-                break;
-            }
+        var results = aggs.country;
+
+        var series = {key: "By Country", values: []};
+        for (var i = 0; i < results.buckets.length; i++) {
+            var term = results.buckets[i];
+            var country = term.term;
+            var sum = term.aggs.total_committed.sum;
+            series.values.push({label: country, value: sum});
         }
 
+        function sortCountries(a, b) {
+            return b.value - a.value;
+        }
+
+        series.values.sort(sortCountries);
+
+        return [series];
+    },
+
+    continentDF : function(chart) {
+        var aggs = chart.edge.resources.master_aggregations;
+        var results = aggs.continent;
+
         var series = {key: "By Continent", values: []};
-        for (var i = 0; i < results.terms.length; i++) {
-            var term = results.terms[i];
+        for (var i = 0; i < results.buckets.length; i++) {
+            var term = results.buckets[i];
             var continent = term.term;
-            var sum = term.aggs[0].sum;
+            var sum = term.aggs.total_committed.sum;
             series.values.push({label: continent, value: sum});
         }
 
@@ -200,6 +213,16 @@ var scoss = {
                             prefix: "&euro;",
                             thousandsSeparator: ","
                         })
+                    })
+                }),
+                edges.newHorizontalMultibar({
+                    id: "by_country",
+                    dataFunction: scoss.countryDF,
+                    renderer : edges.nvd3.newHorizontalMultibarRenderer({
+                        dynamicHeight: true,
+                        barHeight: 15,
+                        reserveAbove: 50,
+                        reserveBelow: 50
                     })
                 }),
                 edges.newPieChart({
