@@ -39,6 +39,17 @@ var scoss = {
                             field: "Funding Committed (EUR)"
                         })
                     ]
+                }),
+                edges.csv.newTermsAggregation({
+                    name : "funders",
+                    field: "Funder Full Name",
+                    order: "term",
+                    nested : [
+                        edges.csv.newSumAggregation({
+                            name: "total_committed",
+                            field: "Funding Committed (EUR)"
+                        })
+                    ]
                 })
             ];
 
@@ -155,6 +166,32 @@ var scoss = {
         return [series];
     },
 
+    topDonorsDFClosure : function(params) {
+        var limit = params.limit;
+
+        return function(chart) {
+            var aggs = chart.edge.resources.master_aggregations;
+            var funders = aggs.funders;
+
+            var series = {key: "Top Donors/Members", values: []};
+            for (var i = 0; i < funders.buckets.length; i++) {
+                var term = funders.buckets[i];
+                var funder = term.term;
+                var sum = term.aggs.total_committed.sum;
+                series.values.push({label: funder, value: sum});
+            }
+
+            function sortFunders(a, b) {
+                return b.value - a.value;
+            }
+
+            series.values.sort(sortFunders);
+            series.values = series.values.slice(0, limit);
+
+            return [series];
+        }
+    },
+
     makeServiceProviderPage : function(params) {
         scoss.activeEdges[params.selector] = edges.newEdge({
             selector: params.selector,
@@ -233,6 +270,25 @@ var scoss = {
                         labelsOutside: true,
                         color: false
                     })
+                }),
+                edges.newHorizontalMultibar({
+                    id: "top_donors",
+                    dataFunction: scoss.topDonorsDFClosure({limit: params.top_donor_limit}),
+                    renderer : edges.nvd3.newHorizontalMultibarRenderer({
+                        dynamicHeight: true,
+                        barHeight: 15,
+                        reserveAbove: 50,
+                        reserveBelow: 50
+                    })
+                }),
+                scoss.newDonorList({
+                    id: "all_donors",
+                    renderer: edges.bs3.newTabularResultsRenderer({
+                        fieldDisplay: [
+                            {field: "donor", display: "Donor/Member"},
+                            {field: "committed", display: "Committed"}
+                        ]
+                    })
                 })
             ]
         })
@@ -270,5 +326,22 @@ var scoss = {
 
             edge.context.html(frag);
         }
+    },
+
+    newDonorList : function(params) {
+        return edges.instantiate(scoss.DonorList, params, edges.newComponent);
+    },
+    DonorList : function(params) {
+        this.results = [];
+
+        this.synchronise = function() {
+            this.results = [];
+
+            var funders = this.edge.resources.master_aggregations.funders;
+            for (var i = 0; i < funders.buckets.length; i++) {
+                var funder = funders.buckets[i];
+                this.results.push({donor: funder.term, committed: funder.aggs.total_committed.sum});
+            }
+        };
     }
 };

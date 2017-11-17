@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/vendor/edges/vendor/bootstrap-3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/vendor/edges/vendor/nvd3-1.8.1/nv.d3.css">
     <link rel="stylesheet" href="/vendor/edges/vendor/loading-bar/loading-bar.css">
+    <link rel="stylesheet" href="/vendor/edges/css/bs3.TabularResultsRenderer.css">
     <link rel="stylesheet" href="/vendor/edges/css/loading-bar.edges.css">
     <link rel="stylesheet" href="/src/css/scoss_edges.css">
 
@@ -30,8 +31,8 @@
 
 <script type="text/javascript" src="/vendor/edges/src/components/loading.js"></script>
 <script type="text/javascript" src="/vendor/edges/src/components/charts.js"></script>
-<script type="text/javascript" src="/vendor/edges/src/components/tables.js"></script>
 
+<script type="text/javascript" src="/vendor/edges/src/renderers/bs3.TabularResultsRenderer.js"></script>
 <script type="text/javascript" src="/vendor/edges/src/renderers/loading-bar.edges.js"></script>
 <script type="text/javascript" src="/vendor/edges/src/renderers/nvd3.edges.js"></script>
 
@@ -43,7 +44,8 @@ jQuery(document).ready(function($) {
         selector: "#service_provider_page",
         service_registry : "http://localhost:8000/data/testservice.csv",
         master_data : "http://localhost:8000/data/testmaster.csv",
-        service_id : "DOAJ"
+        service_id : "DOAJ",
+        top_donor_limit: 10
     });
 });
 </script>
