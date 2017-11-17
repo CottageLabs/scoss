@@ -43,10 +43,10 @@ cp $EDGES/src/edges.jquery.js $SRC
 cp $EDGES/src/edges.js $SRC
 cp $EDGES/src/edges.csv.js $SRC
 cp $EDGES/src/components/charts.js $SRC
-cp $EDGES/src/components/tables.js $SRC
 cp $EDGES/src/components/loading.js $SRC
 cp $EDGES/src/renderers/nvd3.edges.js $SRC
 cp $EDGES/src/renderers/loading-bar.edges.js $SRC
+cp $EDGES/src/renderers/bs3.TabularResultsRenderer.js $SRC
 cp src/js/scoss_edges.js $SRC
 
 # compile all the javascript down to minified versions
@@ -57,10 +57,10 @@ cat $BSRC/edges.jquery.js <(echo) \
     $BSRC/edges.js <(echo) \
     $BSRC/edges.csv.js <(echo) \
     $BSRC/charts.js <(echo) \
-    $BSRC/tables.js <(echo) \
     $BSRC/loading.js <(echo) \
     $BSRC/loading-bar.edges.js <(echo) \
     $BSRC/nvd3.edges.js <(echo) \
+    $BSRC/bs3.TabularResultsRenderer.js <(echo) \
     $BSRC/scoss_edges.js <(echo) \
     > $MSRC
 
@@ -89,14 +89,17 @@ cat $DEP/jquery-1.11.1.min.js <(echo) \
 
 # copy the css into the build directory
 cp src/css/scoss_edges.css $CSS
+cp $EDGES/css/bs3.TabularResultsRenderer.css $CSS
 cp $EDGES/css/loading-bar.edges.css $CSS
 
 # minify each css file individually
 nodejs $R -o cssIn=$CSS/scoss_edges.css out=$BCSS/scoss_edges.css baseUrl=.
+nodejs $R -o cssIn=$CSS/bs3.TabularResultsRenderer.css out=$BCSS/bs3.TabularResultsRenderer.css baseUrl=.
 nodejs $R -o cssIn=$CSS/loading-bar.edges.css out=$BCSS/loading-bar.edges.css baseUrl=.
 
 # cat all the CSS into a single minified file
 cat $BCSS/scoss_edges.css <(echo) \
+    $BCSS/bs3.TabularResultsRenderer.css <(echo) \
     $BCSS/loading-bar.edges.css <(echo) \
     > $MCSS
 

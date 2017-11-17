@@ -1,6 +1,20 @@
 .scoss-spp-continent {
     height: 400px;
 }
+
+.edges-bs3-tabular-results-table {
+    border-collapse: collapse;
+}
+.edges-bs3-tabular-results-header {
+    padding: 5px;
+    white-space: nowrap;
+}
+.edges-bs3-tabular-results-cell {
+    padding: 5px;
+}
+.edges-bs3-tabular-results-download {
+    text-align: right;
+}
 .edges-loading_io-renderer-container {
     text-align: center;
 }
