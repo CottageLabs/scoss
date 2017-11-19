@@ -218,7 +218,7 @@ var scoss = {
                     calculate : scoss.progressCommitted,
                     renderer : edges.loading_io.newLoadingIORendererBS3({
                         preset: "circle",
-                        title: "Committed",
+                        title: "<h3>Committed</h3>",
                         showXofY: true,
                         xyNumFormat: edges.numFormat({
                             prefix: "&euro;",
@@ -231,7 +231,7 @@ var scoss = {
                     calculate : scoss.progressPaid,
                     renderer : edges.loading_io.newLoadingIORendererBS3({
                         preset: "circle",
-                        title: "Paid",
+                        title: "<h3>Paid</h3>",
                         showXofY: true,
                         xyNumFormat: edges.numFormat({
                             prefix: "&euro;",
@@ -244,7 +244,7 @@ var scoss = {
                     calculate : scoss.progressNeeded,
                     renderer : edges.loading_io.newLoadingIORendererBS3({
                         preset: "circle",
-                        title: "Needed",
+                        title: "<h3>Needed</h3>",
                         showXofY: true,
                         xyNumFormat: edges.numFormat({
                             prefix: "&euro;",
@@ -313,12 +313,15 @@ var scoss = {
             var allDonorsClass = edges.css_classes(this.namespace, "all-donors");
 
             var frag = '<div class="' + containerClass + '">\
+                    <div class="row"><div class="col-md-12"><h2>Funding Progress</h2></div></div>\
                     <div class="row">\
-                        <div class="col-md-2 col-md-offset-3"><div id="progress_committed" class="' + progressCommittedClass + '"></div></div>\
-                        <div class="col-md-2"><div id="progress_paid" class="' + progressPaidClass + '"></div></div>\
-                        <div class="col-md-2"><div id="progress_needed" class="' + progressNeededClass + '"></div></div>\
+                        <div class="col-md-2 col-md-offset-2"><div id="progress_committed" class="' + progressCommittedClass + '"></div></div>\
+                        <div class="col-md-2 col-md-offset-1"><div id="progress_paid" class="' + progressPaidClass + '"></div></div>\
+                        <div class="col-md-2 col-md-offset-1"><div id="progress_needed" class="' + progressNeededClass + '"></div></div>\
                     </div>\
-                    <div class="row"><div class="col-md-12"><div id="by_country" class="' + countryClass + '"></div></div></div>\
+                    <div class="row"><div class="col-md-12">\
+                        <div id="by_country" class="' + countryClass + '"></div>\
+                    </div></div>\
                     <div class="row"><div class="col-md-12"><div id="by_continent" class="' + continentClass + '"></div></div></div>\
                     <div class="row"><div class="col-md-12"><div id="top_donors" class="' + topDonorsClass + '"></div></div></div>\
                     <div class="row"><div class="col-md-12"><div id="all_donors" class="' + allDonorsClass + '"></div></div></div>\
