@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
+# paths to utilities required by this script
+NODEJS="nodejs"
+R="vendor/edges/build/r.js"
+
 
 # variables to use for this run
 OUT="release/"
 EDGES="vendor/edges/"
-R="vendor/edges/build/r.js"
 MIN_JS="scoss.min.js"
 BUILD_NOTE="build.txt"
 DEP_JS="scoss.dep.js"
@@ -50,7 +53,7 @@ cp $EDGES/src/renderers/bs3.TabularResultsRenderer.js $SRC
 cp src/js/scoss_edges.js $SRC
 
 # compile all the javascript down to minified versions
-nodejs $R -o appDir=$SRC baseDir=. dir=$BSRC
+$NODEJS $R -o appDir=$SRC baseDir=. dir=$BSRC
 
 # combine all the js into a single file in the right order
 cat $BSRC/edges.jquery.js <(echo) \
@@ -93,9 +96,9 @@ cp $EDGES/css/bs3.TabularResultsRenderer.css $CSS
 cp $EDGES/css/loading-bar.edges.css $CSS
 
 # minify each css file individually
-nodejs $R -o cssIn=$CSS/scoss_edges.css out=$BCSS/scoss_edges.css baseUrl=.
-nodejs $R -o cssIn=$CSS/bs3.TabularResultsRenderer.css out=$BCSS/bs3.TabularResultsRenderer.css baseUrl=.
-nodejs $R -o cssIn=$CSS/loading-bar.edges.css out=$BCSS/loading-bar.edges.css baseUrl=.
+$NODEJS $R -o cssIn=$CSS/scoss_edges.css out=$BCSS/scoss_edges.css baseUrl=.
+$NODEJS $R -o cssIn=$CSS/bs3.TabularResultsRenderer.css out=$BCSS/bs3.TabularResultsRenderer.css baseUrl=.
+$NODEJS $R -o cssIn=$CSS/loading-bar.edges.css out=$BCSS/loading-bar.edges.css baseUrl=.
 
 # cat all the CSS into a single minified file
 cat $BCSS/scoss_edges.css <(echo) \
