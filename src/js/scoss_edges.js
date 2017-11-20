@@ -134,7 +134,7 @@ var scoss = {
         var aggs = chart.edge.resources.master_aggregations;
         var results = aggs.country;
 
-        var series = {key: "By Country", values: []};
+        var series = {key: "Total Funding", values: []};
         for (var i = 0; i < results.buckets.length; i++) {
             var term = results.buckets[i];
             var country = term.term;
@@ -155,7 +155,7 @@ var scoss = {
         var aggs = chart.edge.resources.master_aggregations;
         var results = aggs.continent;
 
-        var series = {key: "By Continent", values: []};
+        var series = {key: "Total Funding", values: []};
         for (var i = 0; i < results.buckets.length; i++) {
             var term = results.buckets[i];
             var continent = term.term;
@@ -173,7 +173,7 @@ var scoss = {
             var aggs = chart.edge.resources.master_aggregations;
             var funders = aggs.funders;
 
-            var series = {key: "Top Donors/Members", values: []};
+            var series = {key: "Total Funding", values: []};
             for (var i = 0; i < funders.buckets.length; i++) {
                 var term = funders.buckets[i];
                 var funder = term.term;
@@ -205,7 +205,7 @@ var scoss = {
     makeServiceProviderPage : function(params) {
         scoss.activeEdges[params.selector] = edges.newEdge({
             selector: params.selector,
-            template: scoss.newServiceProviderPageTemplate(),
+            template: scoss.newServiceProviderPageTemplate({top_donor_limit: params.top_donor_limit}),
             staticFiles : [
                 {
                     id : "service_registry",
@@ -284,10 +284,14 @@ var scoss = {
                     id: "top_donors",
                     dataFunction: scoss.topDonorsDFClosure({limit: params.top_donor_limit}),
                     renderer : edges.nvd3.newHorizontalMultibarRenderer({
+                        legend: false,
                         dynamicHeight: true,
-                        barHeight: 15,
+                        barHeight: 30,
                         reserveAbove: 50,
-                        reserveBelow: 50
+                        reserveBelow: 50,
+                        yTickFormat: scoss.currencyFormatter,
+                        valueFormat: scoss.currencyFormatter,
+                        yAxisLabel: "Total Funding (EUR)"
                     })
                 }),
                 scoss.newDonorList({
@@ -307,6 +311,8 @@ var scoss = {
         return edges.instantiate(scoss.ServiceProviderPageTemplate, params, edges.newTemplate)
     },
     ServiceProviderPageTemplate : function(params) {
+        this.topDonorLimit = edges.getParam(params.top_donor_limit, 10);
+
         this.namespace = "scoss-spp";
 
         this.draw = function(edge) {
@@ -342,6 +348,7 @@ var scoss = {
                         <div class="row"><div class="col-md-12"><div id="by_continent" class="' + continentClass + '"></div></div></div>\
                     </div>\
                     <div class="' + sectionClass + '">\
+                        <h2>Top ' + this.topDonorLimit + ' Donors/Members</h2>\
                         <div class="row"><div class="col-md-12"><div id="top_donors" class="' + topDonorsClass + '"></div></div></div>\
                     </div>\
                     <div class="' + sectionClass + '">\
