@@ -230,10 +230,6 @@ var scoss = {
                         preset: "circle",
                         title: "<h3>Committed</h3>",
                         showXofY: true,
-                        //xyNumFormat: edges.numFormat({
-                        //    prefix: "&euro;",
-                        //    thousandsSeparator: ","
-                        //})
                         xyNumFormat: scoss.euroFormatter
                     })
                 }),
