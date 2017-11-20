@@ -18,3 +18,24 @@
 .scoss-spp-continent {
     height: 600px;
 }
+
+.edges-bs3-tabular-results-table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.edges-bs3-tabular-results-table thead {
+    background: #cccccc;
+}
+
+.edges-bs3-tabular-results-table tbody tr {
+    border-bottom: 1px solid #cccccc;
+}
+
+.edges-bs3-tabular-results-cell-committed {
+    text-align: right;
+}
+
+.edges-bs3-tabular-results-header-Committed {
+    text-align: right;
+}

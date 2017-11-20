@@ -295,7 +295,7 @@ var scoss = {
                     renderer: edges.bs3.newTabularResultsRenderer({
                         fieldDisplay: [
                             {field: "donor", display: "Donor/Member"},
-                            {field: "committed", display: "Committed"}
+                            {field: "committed", display: "Committed", valueFunction: scoss.euroFormatter}
                         ]
                     })
                 })
@@ -348,7 +348,8 @@ var scoss = {
                         <div class="row"><div class="col-md-12"><div id="top_donors" class="' + topDonorsClass + '"></div></div></div>\
                     </div>\
                     <div class="' + sectionClass + '">\
-                        <div class="row"><div class="col-md-12"><div id="all_donors" class="' + allDonorsClass + '"></div></div></div>\
+                        <h2>All Donors/Members</h2>\
+                        <div class="row"><div class="col-md-10 col-md-offset-1"><div id="all_donors" class="' + allDonorsClass + '"></div></div></div>\
                     </div>\
                 </div></div>';
 
