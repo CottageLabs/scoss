@@ -275,7 +275,7 @@ var scoss = {
                     id : "by_continent",
                     dataFunction: scoss.continentDF,
                     renderer : edges.nvd3.newPieChartRenderer({
-                        valueFormat: d3.format(',d'),
+                        valueFormat: scoss.currencyFormatter,
                         labelsOutside: true,
                         color: false
                     })
@@ -338,6 +338,7 @@ var scoss = {
                         </div></div>\
                     </div>\
                     <div class="' + sectionClass + '">\
+                        <h2>Funding by Continent</h2>\
                         <div class="row"><div class="col-md-12"><div id="by_continent" class="' + continentClass + '"></div></div></div>\
                     </div>\
                     <div class="' + sectionClass + '">\
