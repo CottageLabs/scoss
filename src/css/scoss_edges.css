@@ -1,22 +1,31 @@
+/**
+ * CSS for SCOSS data visualisation
+ */
+
+/* custom CSS for third party dependencies */
+
+.ldBar-label {
+    font-size: 2em;
+}
+
+/* css for SCOSS page template */
 .scoss-spp-section {
     margin-bottom: 50px;
 }
+
+.scoss-spp-continent {
+    height: 600px;
+}
+
+/* overrides and extensions to edges css for custom layouts */
 
 .edges-loading_io-renderer-bar {
     width: 100% !important;
     height: 100% !important;
 }
 
-.ldBar-label {
-    font-size: 2em;
-}
-
 .edges-loading_io-renderer-xofy {
     font-size: 1.3em;
-}
-
-.scoss-spp-continent {
-    height: 600px;
 }
 
 .edges-bs3-tabular-results-table {
