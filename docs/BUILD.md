@@ -43,7 +43,7 @@ Such that the right hand side contains the path to your NodeJS executable.
 
 Simply execute the build.sh script in the root of the code repository:
 
-    sh build.sh
+    bash build.sh
     
 This will produce the compiled source JS and CSS plus dependencies into the /release directory.
 
