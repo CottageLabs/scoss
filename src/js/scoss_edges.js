@@ -475,9 +475,10 @@ var scoss = {
                     renderer : edges.nvd3.newHorizontalMultibarRenderer({
                         legend: false,
                         dynamicHeight: true,
-                        barHeight: 15,
+                        barHeight: 40,
                         reserveAbove: 50,
                         reserveBelow: 50,
+                        groupSpacing: 0.5,
                         yTickFormat: scoss.currencyFormatter,
                         valueFormat: scoss.currencyFormatter,
                         yAxisLabel: "Total Funding (EUR)"
