@@ -164,3 +164,22 @@ data on a local machine.  It is providing the report for Sherpa Romeo, and the n
         });
     });
     
+
+## Customising section headers and intro text
+
+You can also customise the section headers and intro text, by passing additional arguments into the scoss.makeServiceProviderPage function:
+
+* funding_progress_header - header text
+* funding_progress_intro - section intro text
+* funding_by_country_header - header text
+* funding_by_country_intro - section intro text
+* funding_by_continent_header - header text
+* funding_by_continent_intro - section intro text
+* top_donor_header - header text.  "{x}" will be replaced with top_donor_limit if present
+* top_donor_intro - section intro text
+* all_donors_header - header text
+* all_donors_intro - section intro text
+
+*_header elements will be placed inside <h2> tags.  
+
+*_intro elements can contain any HTML you like.

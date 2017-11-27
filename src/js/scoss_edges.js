@@ -395,6 +395,16 @@ var scoss = {
      * @param {Object} params
      * @param {string} params.selector - the jQuery selector for the page element into which to render the Edge
      * @param {number} params.top_donor_limit - the number of Donors/Members to include in the Top X Donor/Member chart
+     * @param {String} params.funding_progress_header - header text
+     * @param {String} params.funding_progress_intro - section intro text
+     * @param {String} params.funding_by_country_header - header text
+     * @param {String} params.funding_by_country_intro - section intro text
+     * @param {String} params.funding_by_continent_header - header text
+     * @param {String} params.funding_by_continent_intro - section intro text
+     * @param {String} params.top_donor_header - header text.  "{x}" will be replaced with params.top_donor_limit if present
+     * @param {String} params.top_donor_intro - section intro text
+     * @param {String} params.all_donors_header - header text
+     * @param {String} params.all_donors_intro - section intro text
      * @param {string} service_id - the service ID of the provider this report is centred around.
      * @param {string} service_registry - URL to the Service Registry CSV.  Must be accessible by this script (e.g. in the same domain)
      * @param {string} master_data - URL to the Master Sheet CSV.  Must be accessible by this script (e.g. in the same domain)
@@ -405,7 +415,19 @@ var scoss = {
             selector: params.selector,
 
             // initialise the template around the top donor limit
-            template: scoss.newServiceProviderPageTemplate({top_donor_limit: params.top_donor_limit}),
+            template: scoss.newServiceProviderPageTemplate({
+                top_donor_limit: edges.getParam(params.top_donor_limit, 10),
+                funding_progress_header: edges.getParam(params.funding_progress_header, "Funding progress"),
+                funding_progress_intro: edges.getParam(params.funding_progress_intro, ""),
+                funding_by_country_header: edges.getParam(params.funding_by_country_header, "Funds committed by country"),
+                funding_by_country_intro: edges.getParam(params.funding_by_country_intro, ""),
+                funding_by_continent_header: edges.getParam(params.funding_by_continent_header, "Funds committed by continent"),
+                funding_by_continent_intro: edges.getParam(params.funding_by_continent_intro, ""),
+                top_donor_header: edges.getParam(params.top_donor_header, "Top {x} crowdfunders/members"),
+                top_donor_intro: edges.getParam(params.top_donor_intro, ""),
+                all_donors_header: edges.getParam(params.funding_by_continent_header, "All crowdfunders/members"),
+                all_donors_intro: edges.getParam(params.funding_by_continent_intro, "")
+            }),
 
             // specify the static files to be loaded:
             // 1. The service registry
@@ -552,7 +574,7 @@ var scoss = {
      * @constructor
      */
     ServiceProviderPageTemplate : function(params) {
-        this.topDonorLimit = edges.getParam(params.top_donor_limit, 10);
+        this.params = params;
 
         this.namespace = "scoss-spp";
 
@@ -569,9 +591,11 @@ var scoss = {
             var topDonorsClass = edges.css_classes(this.namespace, "top-donors");
             var allDonorsClass = edges.css_classes(this.namespace, "all-donors");
 
+            var donorHeader = this.params.top_donor_header.replace("{x}", this.params.top_donor_limit);
+
             var frag = '<div class="' + containerClass + '">\
                     <div class="' + sectionClass + '">\
-                        <div class="row"><div class="col-md-12"><h2>Funding Progress</h2></div></div>\
+                        <div class="row"><div class="col-md-12"><h2>' + this.params.funding_progress_header + '</h2>' + this.params.funding_progress_intro + '</div></div>\
                         <div class="row">\
                             <div class="col-md-2 col-md-offset-2"><div id="progress_committed" class="' + progressCommittedClass + '"></div></div>\
                             <div class="col-md-2 col-md-offset-1"><div id="progress_paid" class="' + progressPaidClass + '"></div></div>\
@@ -580,20 +604,20 @@ var scoss = {
                     </div> \
                     <div class="' + sectionClass + '">\
                         <div class="row"><div class="col-md-12">\
-                            <h2>Funds by Country</h2>\
+                            <h2>' + this.params.funding_by_country_header + '</h2>' + this.params.funding_by_country_intro + '\
                             <div id="by_country" class="' + countryClass + '"></div>\
                         </div></div>\
                     </div>\
                     <div class="' + sectionClass + '">\
-                        <h2>Funding by Continent</h2>\
+                        <h2>' + this.params.funding_by_continent_header + '</h2>' + this.params.funding_by_continent_intro + '\
                         <div class="row"><div class="col-md-12"><div id="by_continent" class="' + continentClass + '"></div></div></div>\
                     </div>\
                     <div class="' + sectionClass + '">\
-                        <h2>Top ' + this.topDonorLimit + ' Donors/Members</h2>\
+                        <h2>' + donorHeader + '</h2>' + this.params.top_donor_intro + '\
                         <div class="row"><div class="col-md-12"><div id="top_donors" class="' + topDonorsClass + '"></div></div></div>\
                     </div>\
                     <div class="' + sectionClass + '">\
-                        <h2>All Donors/Members</h2>\
+                        <h2>' + this.params.all_donors_header + '</h2>' + this.params.all_donors_intro + '\
                         <div class="row"><div class="col-md-10 col-md-offset-1"><div id="all_donors" class="' + allDonorsClass + '"></div></div></div>\
                     </div>\
                 </div></div>';
