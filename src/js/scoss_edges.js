@@ -36,6 +36,24 @@ var scoss = {
         thousandsSeparator: ","
     }),
 
+    continentPercentFormatterClosure : function(selector) {
+        return function(val) {
+            var edge = scoss.activeEdges[selector];
+
+            var total = edge.resources.master_aggregations.total_committed.sum;
+
+            var pc = 100;
+            if (total > 0) {
+                pc = Math.round((val / total) * 100);
+            }
+            
+            var s = scoss.currencyFormatter(val);
+            s += " (" + pc + "%)";
+
+            return s
+        }
+    },
+
     /**
      * Closure which returns a function which can be applied to the MasterSheet in the edge.resources
      * area.
@@ -323,6 +341,13 @@ var scoss = {
             series.values.push({label: continent, value: sum});
         }
 
+        // function that sorts continents by their total commitment
+        function sortContinents(a, b) {
+            return b.value - a.value;
+        }
+
+        series.values.sort(sortContinents);
+
         return [series];
     },
 
@@ -512,7 +537,8 @@ var scoss = {
                     id : "by_continent",
                     dataFunction: scoss.continentDF,
                     renderer : edges.nvd3.newPieChartRenderer({
-                        valueFormat: scoss.currencyFormatter,
+                        // valueFormat: scoss.currencyFormatter,
+                        valueFormat: scoss.continentPercentFormatterClosure(params.selector),
                         labelsOutside: true,
                         color: false
                     })
