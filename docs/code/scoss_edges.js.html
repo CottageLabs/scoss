@@ -41,6 +41,22 @@ var scoss = {
     activeEdges : {},
 
     /**
+     * A place to access all the colour and other theme information for the visuals that can't be set
+     * via the stylesheet
+     *
+     * @member {Object}
+     */
+    theme : {
+        light_blue: "#46bee0",
+        dark_blue: "#014993",
+        grey: "#49474d",
+        light_green: "#f1f7ee",
+        pie_colours: [
+            "#014993", "#46bee0", "#3B8EA5", "#F5EE9E", "#F49E4C", "#E84855"
+        ]
+    },
+
+    /**
      * A function that returns a number formatted according to our currency output rules that is compliant
      * with the HTML character encoding requirements.  This should be used wherever the number will be rendered
      * in plain HTML.
@@ -63,6 +79,24 @@ var scoss = {
         prefix: "€",
         thousandsSeparator: ","
     }),
+
+    continentPercentFormatterClosure : function(selector) {
+        return function(val) {
+            var edge = scoss.activeEdges[selector];
+
+            var total = edge.resources.master_aggregations.total_committed.sum;
+
+            var pc = 100;
+            if (total > 0) {
+                pc = Math.round((val / total) * 100);
+            }
+            
+            var s = scoss.currencyFormatter(val);
+            s += " (" + pc + "%)";
+
+            return s
+        }
+    },
 
     /**
      * Closure which returns a function which can be applied to the MasterSheet in the edge.resources
@@ -351,6 +385,13 @@ var scoss = {
             series.values.push({label: continent, value: sum});
         }
 
+        // function that sorts continents by their total commitment
+        function sortContinents(a, b) {
+            return b.value - a.value;
+        }
+
+        series.values.sort(sortContinents);
+
         return [series];
     },
 
@@ -423,6 +464,16 @@ var scoss = {
      * @param {Object} params
      * @param {string} params.selector - the jQuery selector for the page element into which to render the Edge
      * @param {number} params.top_donor_limit - the number of Donors/Members to include in the Top X Donor/Member chart
+     * @param {String} params.funding_progress_header - header text
+     * @param {String} params.funding_progress_intro - section intro text
+     * @param {String} params.funding_by_country_header - header text
+     * @param {String} params.funding_by_country_intro - section intro text
+     * @param {String} params.funding_by_continent_header - header text
+     * @param {String} params.funding_by_continent_intro - section intro text
+     * @param {String} params.top_donor_header - header text.  "{x}" will be replaced with params.top_donor_limit if present
+     * @param {String} params.top_donor_intro - section intro text
+     * @param {String} params.all_donors_header - header text
+     * @param {String} params.all_donors_intro - section intro text
      * @param {string} service_id - the service ID of the provider this report is centred around.
      * @param {string} service_registry - URL to the Service Registry CSV.  Must be accessible by this script (e.g. in the same domain)
      * @param {string} master_data - URL to the Master Sheet CSV.  Must be accessible by this script (e.g. in the same domain)
@@ -433,7 +484,19 @@ var scoss = {
             selector: params.selector,
 
             // initialise the template around the top donor limit
-            template: scoss.newServiceProviderPageTemplate({top_donor_limit: params.top_donor_limit}),
+            template: scoss.newServiceProviderPageTemplate({
+                top_donor_limit: edges.getParam(params.top_donor_limit, 10),
+                funding_progress_header: edges.getParam(params.funding_progress_header, "Funding progress"),
+                funding_progress_intro: edges.getParam(params.funding_progress_intro, ""),
+                funding_by_country_header: edges.getParam(params.funding_by_country_header, "Funds committed by country"),
+                funding_by_country_intro: edges.getParam(params.funding_by_country_intro, ""),
+                funding_by_continent_header: edges.getParam(params.funding_by_continent_header, "Funds committed by continent"),
+                funding_by_continent_intro: edges.getParam(params.funding_by_continent_intro, ""),
+                top_donor_header: edges.getParam(params.top_donor_header, "Top {x} crowdfunders/members"),
+                top_donor_intro: edges.getParam(params.top_donor_intro, "Top crowdfunders/donors by amount committed."),
+                all_donors_header: edges.getParam(params.funding_by_continent_header, "All crowdfunders/members"),
+                all_donors_intro: edges.getParam(params.funding_by_continent_intro, "All crowdfunders/donors ordered alphabetically, showing amount committed")
+            }),
 
             // specify the static files to be loaded:
             // 1. The service registry
@@ -471,7 +534,11 @@ var scoss = {
                         preset: "circle",
                         title: "&lt;h3>Committed&lt;/h3>",
                         showXofY: true,
-                        xyNumFormat: scoss.euroFormatter
+                        xyNumFormat: scoss.euroFormatter,
+                        stroke: scoss.theme.dark_blue,
+                        strokeWidth: 4,
+                        strokeTrailWidth: 0,
+                        fill: scoss.theme.light_blue
                     })
                 }),
                 edges.loading.newLoadingBar({
@@ -481,7 +548,11 @@ var scoss = {
                         preset: "circle",
                         title: "&lt;h3>Paid&lt;/h3>",
                         showXofY: true,
-                        xyNumFormat: scoss.euroFormatter
+                        xyNumFormat: scoss.euroFormatter,
+                        stroke: scoss.theme.dark_blue,
+                        strokeWidth: 5,
+                        strokeTrail: scoss.theme.light_blue,
+                        strokeTrailWidth: 2
                     })
                 }),
                 edges.loading.newLoadingBar({
@@ -491,7 +562,11 @@ var scoss = {
                         preset: "circle",
                         title: "&lt;h3>Needed&lt;/h3>",
                         showXofY: true,
-                        xyNumFormat: scoss.euroFormatter
+                        xyNumFormat: scoss.euroFormatter,
+                        stroke: scoss.theme.light_blue,
+                        strokeWidth: 5,
+                        strokeTrail: scoss.theme.dark_blue,
+                        strokeTrailWidth: 2
                     })
                 }),
 
@@ -503,12 +578,14 @@ var scoss = {
                     renderer : edges.nvd3.newHorizontalMultibarRenderer({
                         legend: false,
                         dynamicHeight: true,
-                        barHeight: 15,
+                        barHeight: 40,
                         reserveAbove: 50,
                         reserveBelow: 50,
+                        groupSpacing: 0.5,
                         yTickFormat: scoss.currencyFormatter,
                         valueFormat: scoss.currencyFormatter,
-                        yAxisLabel: "Total Funding (EUR)"
+                        yAxisLabel: "Total Funding (EUR)",
+                        color: [scoss.theme.dark_blue]
                     })
                 }),
 
@@ -517,9 +594,10 @@ var scoss = {
                     id : "by_continent",
                     dataFunction: scoss.continentDF,
                     renderer : edges.nvd3.newPieChartRenderer({
-                        valueFormat: scoss.currencyFormatter,
+                        // valueFormat: scoss.currencyFormatter,
+                        valueFormat: scoss.continentPercentFormatterClosure(params.selector),
                         labelsOutside: true,
-                        color: false
+                        color: scoss.theme.pie_colours
                     })
                 }),
 
@@ -536,7 +614,8 @@ var scoss = {
                         reserveBelow: 50,
                         yTickFormat: scoss.currencyFormatter,
                         valueFormat: scoss.currencyFormatter,
-                        yAxisLabel: "Total Funding (EUR)"
+                        yAxisLabel: "Total Funding (EUR)",
+                        color: [scoss.theme.light_blue]
                     })
                 }),
 
@@ -579,7 +658,7 @@ var scoss = {
      * @constructor
      */
     ServiceProviderPageTemplate : function(params) {
-        this.topDonorLimit = edges.getParam(params.top_donor_limit, 10);
+        this.params = params;
 
         this.namespace = "scoss-spp";
 
@@ -596,9 +675,11 @@ var scoss = {
             var topDonorsClass = edges.css_classes(this.namespace, "top-donors");
             var allDonorsClass = edges.css_classes(this.namespace, "all-donors");
 
+            var donorHeader = this.params.top_donor_header.replace("{x}", this.params.top_donor_limit);
+
             var frag = '&lt;div class="' + containerClass + '">\
                     &lt;div class="' + sectionClass + '">\
-                        &lt;div class="row">&lt;div class="col-md-12">&lt;h2>Funding Progress&lt;/h2>&lt;/div>&lt;/div>\
+                        &lt;div class="row">&lt;div class="col-md-12">&lt;h2>' + this.params.funding_progress_header + '&lt;/h2>' + this.params.funding_progress_intro + '&lt;/div>&lt;/div>\
                         &lt;div class="row">\
                             &lt;div class="col-md-2 col-md-offset-2">&lt;div id="progress_committed" class="' + progressCommittedClass + '">&lt;/div>&lt;/div>\
                             &lt;div class="col-md-2 col-md-offset-1">&lt;div id="progress_paid" class="' + progressPaidClass + '">&lt;/div>&lt;/div>\
@@ -607,20 +688,20 @@ var scoss = {
                     &lt;/div> \
                     &lt;div class="' + sectionClass + '">\
                         &lt;div class="row">&lt;div class="col-md-12">\
-                            &lt;h2>Funds by Country&lt;/h2>\
+                            &lt;h2>' + this.params.funding_by_country_header + '&lt;/h2>' + this.params.funding_by_country_intro + '\
                             &lt;div id="by_country" class="' + countryClass + '">&lt;/div>\
                         &lt;/div>&lt;/div>\
                     &lt;/div>\
                     &lt;div class="' + sectionClass + '">\
-                        &lt;h2>Funding by Continent&lt;/h2>\
+                        &lt;h2>' + this.params.funding_by_continent_header + '&lt;/h2>' + this.params.funding_by_continent_intro + '\
                         &lt;div class="row">&lt;div class="col-md-12">&lt;div id="by_continent" class="' + continentClass + '">&lt;/div>&lt;/div>&lt;/div>\
                     &lt;/div>\
                     &lt;div class="' + sectionClass + '">\
-                        &lt;h2>Top ' + this.topDonorLimit + ' Donors/Members&lt;/h2>\
+                        &lt;h2>' + donorHeader + '&lt;/h2>' + this.params.top_donor_intro + '\
                         &lt;div class="row">&lt;div class="col-md-12">&lt;div id="top_donors" class="' + topDonorsClass + '">&lt;/div>&lt;/div>&lt;/div>\
                     &lt;/div>\
                     &lt;div class="' + sectionClass + '">\
-                        &lt;h2>All Donors/Members&lt;/h2>\
+                        &lt;h2>' + this.params.all_donors_header + '&lt;/h2>' + this.params.all_donors_intro + '\
                         &lt;div class="row">&lt;div class="col-md-10 col-md-offset-1">&lt;div id="all_donors" class="' + allDonorsClass + '">&lt;/div>&lt;/div>&lt;/div>\
                     &lt;/div>\
                 &lt;/div>&lt;/div>';
@@ -680,7 +761,7 @@ var scoss = {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Nov 21 2017 15:51:29 GMT+0000 (GMT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Nov 29 2017 17:46:11 GMT+0000 (GMT)
 </footer>
 
 <script> prettyPrint(); </script>
