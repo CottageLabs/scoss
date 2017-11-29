@@ -12,6 +12,12 @@ var scoss = {
      */
     activeEdges : {},
 
+    theme : {
+        light_blue: "#46bee0",
+        dark_blue: "#014993",
+        grey: "#49474d"
+    },
+
     /**
      * A function that returns a number formatted according to our currency output rules that is compliant
      * with the HTML character encoding requirements.  This should be used wherever the number will be rendered
@@ -449,9 +455,9 @@ var scoss = {
                 funding_by_continent_header: edges.getParam(params.funding_by_continent_header, "Funds committed by continent"),
                 funding_by_continent_intro: edges.getParam(params.funding_by_continent_intro, ""),
                 top_donor_header: edges.getParam(params.top_donor_header, "Top {x} crowdfunders/members"),
-                top_donor_intro: edges.getParam(params.top_donor_intro, ""),
+                top_donor_intro: edges.getParam(params.top_donor_intro, "Top crowdfunders/donors by amount committed."),
                 all_donors_header: edges.getParam(params.funding_by_continent_header, "All crowdfunders/members"),
-                all_donors_intro: edges.getParam(params.funding_by_continent_intro, "")
+                all_donors_intro: edges.getParam(params.funding_by_continent_intro, "All crowdfunders/donors ordered alphabetically, showing amount committed")
             }),
 
             // specify the static files to be loaded:
@@ -490,7 +496,11 @@ var scoss = {
                         preset: "circle",
                         title: "<h3>Committed</h3>",
                         showXofY: true,
-                        xyNumFormat: scoss.euroFormatter
+                        xyNumFormat: scoss.euroFormatter,
+                        stroke: scoss.theme.dark_blue,
+                        strokeWidth: 4,
+                        strokeTrailWidth: 0,
+                        fill: scoss.theme.light_blue
                     })
                 }),
                 edges.loading.newLoadingBar({
@@ -500,7 +510,11 @@ var scoss = {
                         preset: "circle",
                         title: "<h3>Paid</h3>",
                         showXofY: true,
-                        xyNumFormat: scoss.euroFormatter
+                        xyNumFormat: scoss.euroFormatter,
+                        stroke: scoss.theme.dark_blue,
+                        strokeWidth: 5,
+                        strokeTrail: scoss.theme.light_blue,
+                        strokeTrailWidth: 2
                     })
                 }),
                 edges.loading.newLoadingBar({
@@ -510,7 +524,11 @@ var scoss = {
                         preset: "circle",
                         title: "<h3>Needed</h3>",
                         showXofY: true,
-                        xyNumFormat: scoss.euroFormatter
+                        xyNumFormat: scoss.euroFormatter,
+                        stroke: scoss.theme.light_blue,
+                        strokeWidth: 5,
+                        strokeTrail: scoss.theme.dark_blue,
+                        strokeTrailWidth: 2
                     })
                 }),
 
