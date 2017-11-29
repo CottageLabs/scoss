@@ -1,6 +1,7 @@
 
 .ldBar-label {
     font-size: 2em;
+    font-weight: bold;
 }
 .scoss-spp-section {
     margin-bottom: 50px;
@@ -20,10 +21,12 @@
     margin-top: 20px;
 }
 .edges-bs3-tabular-results-table thead {
-    background: #cccccc;
+    
+    background: #49474d;
+    color: #ffffff;
 }
 .edges-bs3-tabular-results-table tbody tr {
-    border-bottom: 1px solid #cccccc;
+    border-bottom: 1px solid #49474d;
 }
 .edges-bs3-tabular-results-cell-committed {
     text-align: right;
