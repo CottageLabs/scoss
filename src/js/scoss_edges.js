@@ -12,10 +12,20 @@ var scoss = {
      */
     activeEdges : {},
 
+    /**
+     * A place to access all the colour and other theme information for the visuals that can't be set
+     * via the stylesheet
+     *
+     * @member {Object}
+     */
     theme : {
         light_blue: "#46bee0",
         dark_blue: "#014993",
-        grey: "#49474d"
+        grey: "#49474d",
+        light_green: "#f1f7ee",
+        pie_colours: [
+            "#014993", "#46bee0", "#3B8EA5", "#F5EE9E", "#F49E4C", "#E84855"
+        ]
     },
 
     /**
@@ -546,7 +556,8 @@ var scoss = {
                         groupSpacing: 0.5,
                         yTickFormat: scoss.currencyFormatter,
                         valueFormat: scoss.currencyFormatter,
-                        yAxisLabel: "Total Funding (EUR)"
+                        yAxisLabel: "Total Funding (EUR)",
+                        color: [scoss.theme.dark_blue]
                     })
                 }),
 
@@ -558,7 +569,7 @@ var scoss = {
                         // valueFormat: scoss.currencyFormatter,
                         valueFormat: scoss.continentPercentFormatterClosure(params.selector),
                         labelsOutside: true,
-                        color: false
+                        color: scoss.theme.pie_colours
                     })
                 }),
 
@@ -575,7 +586,8 @@ var scoss = {
                         reserveBelow: 50,
                         yTickFormat: scoss.currencyFormatter,
                         valueFormat: scoss.currencyFormatter,
-                        yAxisLabel: "Total Funding (EUR)"
+                        yAxisLabel: "Total Funding (EUR)",
+                        color: [scoss.theme.light_blue]
                     })
                 }),
 
