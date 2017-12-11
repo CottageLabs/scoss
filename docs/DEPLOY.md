@@ -26,11 +26,17 @@ software is running in **will not work**.
 
 The following Google URLs must be proxied into the local domain:
 
-The Service Registry:
+* The Service Registry:
 https://docs.google.com/spreadsheets/d/e/2PACX-1vSKc5TwvLSfWvMsR78f8Vukfcs4quc2-4SVm93pSErv3uMuue6XYJ9KDo_N3m4e51qZQfvcOES86awC/pub?gid=0&single=true&output=csv
 
-The Master Data:
+Current Proxy URL: https://sparceurope.org/sparcgdocs/feed/1
+
+
+* The Master Data:
 https://docs.google.com/spreadsheets/d/e/2PACX-1vSYajOCI-_ZxRnFupQVNsOpmnL98wi06OmonQGoG01TZ4rx1atv-ShQzxKEVSE0vrjpzB3u2TwiAykj/pub?gid=1249817261&single=true&output=csv
+
+Current Proxy URL: https://sparceurope.org/sparcgdocs/feed/2
+
 
 We will use the localised versions of these URLs later when we configure the visualisation:
 
@@ -69,8 +75,8 @@ A full page which implements the data visualisation looks as follows:
         jQuery(document).ready(function($) {
             scoss.makeServiceProviderPage({
                 selector: "#service_provider_page",
-                service_registry : "http://localhost:8000/data/testservice.csv",
-                master_data : "http://localhost:8000/data/testmaster.csv",
+                service_registry : "https://sparceurope.org/sparcgdocs/feed/1",
+                master_data : "https://sparceurope.org/sparcgdocs/feed/2",
                 service_id : "DOAJ",
                 top_donor_limit: 10
             });
@@ -114,8 +120,8 @@ following HTML fragment:
         jQuery(document).ready(function($) {
             scoss.makeServiceProviderPage({
                 selector: "#service_provider_page",
-                service_registry : "http://localhost:8000/data/testservice.csv",
-                master_data : "http://localhost:8000/data/testmaster.csv",
+                service_registry : "https://sparceurope.org/sparcgdocs/feed/1",
+                master_data : "https://sparceurope.org/sparcgdocs/feed/2",
                 service_id : "DOAJ",
                 top_donor_limit: 10
             });
@@ -157,8 +163,8 @@ data on a local machine.  It is providing the report for Sherpa Romeo, and the n
     jQuery(document).ready(function($) {
         scoss.makeServiceProviderPage({
             selector: "#service_provider_page",
-            service_registry : "http://localhost:8000/data/testservice.csv",
-            master_data : "http://localhost:8000/data/testmaster.csv",
+            service_registry : "https://sparceurope.org/sparcgdocs/feed/1",
+            master_data : "https://sparceurope.org/sparcgdocs/feed/2",
             service_id : "ROMEO",
             top_donor_limit: 5
         });
