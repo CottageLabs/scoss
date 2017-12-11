@@ -13,6 +13,7 @@ BUILD_NOTE="build.txt"
 DEP_JS="scoss.dep.js"
 MIN_CSS="scoss.min.css"
 DEP_CSS="scoss.dep.css"
+DEP_NOJQ_JS="scoss.dep.nojq.js"
 
 # variables derived from the base configuration for this run
 SRC=$OUT/js_src
@@ -21,6 +22,7 @@ MSRC=$OUT/$MIN_JS
 
 DEP=$OUT/dep
 MDEP=$OUT/$DEP_JS
+NOJQDEP=$OUT/$DEP_NOJQ_JS
 CDEP=$OUT/$DEP_CSS
 
 CSS=$OUT/css_src
@@ -72,20 +74,26 @@ cat $BSRC/edges.jquery.js <(echo) \
 ## JS Dependencies handling
 
 # pull in all the dependencies
-cp $EDGES/vendor/jquery-1.11.1/jquery-1.11.1.min.js $DEP
+cp vendor/jquery-1.12.4/jquery-1.12.4.min.js $DEP
 cp $EDGES/vendor/d3-3.5.17/d3.min.js $DEP
 cp $EDGES/vendor/nvd3-1.8.1/nv.d3.js $DEP
 cp $EDGES/vendor/PapaParse-4.1.2/papaparse.min.js $DEP
 cp $EDGES/vendor/loading-bar/loading-bar.min.js $DEP
 
-# combine all the dependencies into a single file in the right order
-cat $DEP/jquery-1.11.1.min.js <(echo) \
+# combine all the dependencies into a single file in the right order (with jquery)
+cat $DEP/jquery-1.12.4.min.js <(echo) \
     $DEP/d3.min.js <(echo) \
     $DEP/nv.d3.js <(echo) \
     $DEP/papaparse.min.js <(echo) \
     $DEP/loading-bar.min.js <(echo) \
     > $MDEP
 
+# combine all the dependencies into a single file in the right order (without jquery)
+cat $DEP/d3.min.js <(echo) \
+    $DEP/nv.d3.js <(echo) \
+    $DEP/papaparse.min.js <(echo) \
+    $DEP/loading-bar.min.js <(echo) \
+    > $NOJQDEP
 
 ######################################################
 ## CSS source handling

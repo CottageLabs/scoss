@@ -7,7 +7,7 @@ repository under /release.  If you do not have them, or want to update them, ple
 
 The data visualisation depends on the following common shared JavaScript and CSS libraries:
 
-* JQuery 1.11.1
+* JQuery 1.12.4
 * D3 3.5.17
 * NVD3 1.8.1
 * PapaParse 4.1.2
@@ -97,9 +97,20 @@ site template:
     
     <script type="text/javascript" src="/release/scoss.dep.js"></script>
     <script type="text/javascript" src="/release/scoss.min.js"></script>
+
+If you have jQuery already as part of your page template, you do not want to load it again, so you can use:
+
+    <link rel="stylesheet" href="/release/scoss.dep.css">
+    <link rel="stylesheet" href="/release/scoss.min.css">
     
+    <script type="text/javascript" src="/release/scoss.dep.nojq.js"></script>
+    <script type="text/javascript" src="/release/scoss.min.js"></script>
+
+This will load all the dependencies *except* jQuery.  You must be sure that jQuery is being loaded before the above imports are called.
+
+
 You will need to include the css and js files in the /release directory of this code library into a common location
-in your wordpress instance, and then update the href/src attributes above to point to them.
+in your WordPress instance, and then update the href/src attributes above to point to them.
 
 You should then create an individual page for each Service Provider (e.g. DOAJ and Romeo), and on that page place the
 following HTML fragment:
@@ -108,7 +119,7 @@ following HTML fragment:
     <div class="container"><div class="content">
         <div class="row">
             <div class="col-md-12">
-                <p><a href="doaj_build.html">DOAJ</a> | <a href="romeo_build.html">ROMEO</a></p>
+                <p><a href="doaj.html">DOAJ</a> | <a href="romeo.html">ROMEO</a></p>
                 <h1>Directory of Open Access Journals</h1>
                 <p>Some blurb here about the DOAJ.</p>
             </div>
@@ -138,7 +149,7 @@ fragment beneath it.  The next section describes how this javascript works.
 
 ## Customising the deployment javascript
 
-The data visualisation is triggered by the function scoss.makeServiceProviderPage, which is invoked when the page
+The data visualisation is triggered by the function **scoss.makeServiceProviderPage**, which is invoked when the page
 loads using jQuery:
 
     jQuery(document).ready(function($) {
@@ -173,7 +184,7 @@ data on a local machine.  It is providing the report for Sherpa Romeo, and the n
 
 ## Customising section headers and intro text
 
-You can also customise the section headers and intro text, by passing additional arguments into the scoss.makeServiceProviderPage function:
+You can also customise the section headers and intro text, by passing additional arguments into the **scoss.makeServiceProviderPage** function:
 
 * funding_progress_header - header text
 * funding_progress_intro - section intro text
