@@ -182,9 +182,52 @@ data on a local machine.  It is providing the report for Sherpa Romeo, and the n
     });
     
 
-## Customising section headers and intro text
+## Customising page header, section headers and intro text
 
-You can also customise the section headers and intro text, by passing additional arguments into the **scoss.makeServiceProviderPage** function:
+### Page Header/Introduction
+
+The SCOSS data visualisation code only presents the data visualisations themselves, and does not say anything about the
+rest of the page that you embed the visualisations in. You may, for example, wish to provide page headers, titles, and
+ introductory text.
+ 
+ To do this, edit the WordPress page for the Service Provider, where the visualisations are embedded.  You will see
+ a section of the page HTML which looks as follows:
+ 
+    <div class="container"><div class="content">
+         <div class="row">
+             <div class="col-md-12">
+                 YOUR EXISTING PAGE TITLE/INTRO HERE
+             </div>
+         </div>
+         <div id="service_provider_page"></div>
+     </div></div>
+
+
+Where the existing page title and introduction currently exists, you may place any HTML.  This could include inserting
+a new title, a logo, or some introductory paragraphs.  For example:
+
+    <div class="container"><div class="content">
+         <div class="row">
+             <div class="col-md-12">
+                 <img src="doaj-logo.png">
+                 <h1>The Directory of Open Access Journals</h1>
+                 <p>DOAJ is a community-curated online directory that indexes and provides access to high quality, open access, peer-reviewed journals.</p>
+             </div>
+         </div>
+         <div id="service_provider_page"></div>
+     </div></div>
+
+
+The important thing is to ensure that the line:
+
+    <div id="service_provider_page"></div>
+    
+Remains exactly as written here, as this is the place on the page where the visualisations will be rendered by the software.
+
+### Section Headers/Introductions
+
+You can also customise the section headers and intro text inside the visualisation, by passing additional arguments 
+into the **scoss.makeServiceProviderPage** function.  The arguments allowed are:
 
 * funding_progress_header - header text
 * funding_progress_intro - section intro text
@@ -197,6 +240,50 @@ You can also customise the section headers and intro text, by passing additional
 * all_donors_header - header text
 * all_donors_intro - section intro text
 
-*_header elements will be placed inside <h2> tags.  
+*_header elements will be placed inside \<h2\> tags.  
 
 *_intro elements can contain any HTML you like.
+
+To edit these elements of the visualisation, edit the WordPress page for the Service Provider, where the visualisations are embedded.  
+You will see a section of the page HTML which looks as follows:
+
+    <script type="application/javascript">
+        jQuery(document).ready(function($) {
+            scoss.makeServiceProviderPage({
+                selector: "#service_provider_page",
+                service_registry : "https://sparceurope.org/sparcgdocs/feed/1",
+                master_data : "https://sparceurope.org/sparcgdocs/feed/2",
+                service_id : "DOAJ",
+                top_donor_limit: 10
+            });
+        });
+    </script>
+
+This is the code which creates the visualisation.  You can add the properties listed above as arguments to the function which creates the page 
+as follows:
+
+    <script type="application/javascript">
+        jQuery(document).ready(function($) {
+            scoss.makeServiceProviderPage({
+                selector: "#service_provider_page",
+                service_registry : "https://sparceurope.org/sparcgdocs/feed/1",
+                master_data : "https://sparceurope.org/sparcgdocs/feed/2",
+                service_id : "DOAJ",
+                top_donor_limit: 10,
+                
+                // your header and intro texts
+                funding_progress_header: "My Funding Progress Section",
+                funding_progress_intro: "<p>See the funding progress here</p>",
+                funding_by_country_header: "My Country Section",
+                funding_by_country_intro: "<p>See the break-down by country here</p>",
+                funding_by_continent_header: "My Continent Section",
+                funding_by_continent_intro: "<p>See the contributions by continent here</p>",
+                top_donor_header: "My Top {x} Donors",
+                top_donor_intro: "<p>Top donors!</p>",
+                all_donors_header: "All my donors",
+                all_donors_intro: "<p>All donors!</p>"
+            });
+        });
+    </script>
+    
+If you do not include a particular header or intro, they will revert to their default values, which is a sensible header for the page section, and no intro text.
