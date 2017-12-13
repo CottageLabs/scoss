@@ -44,6 +44,7 @@ mkdir $BCSS
 ## JavaScript source handling
 
 # now copy at the js into the SRC directory
+cp src/js/jqbinding.js $SRC
 cp $EDGES/src/edges.jquery.js $SRC
 cp $EDGES/src/edges.js $SRC
 cp $EDGES/src/edges.csv.js $SRC
@@ -58,7 +59,8 @@ cp src/js/scoss_edges.js $SRC
 $NODEJS $R -o appDir=$SRC baseDir=. dir=$BSRC
 
 # combine all the js into a single file in the right order
-cat $BSRC/edges.jquery.js <(echo) \
+cat $BSRC/jqbinding.js <(echo) \
+    $BSRC/edges.jquery.js <(echo) \
     $BSRC/edges.js <(echo) \
     $BSRC/edges.csv.js <(echo) \
     $BSRC/charts.js <(echo) \
@@ -74,6 +76,7 @@ cat $BSRC/edges.jquery.js <(echo) \
 ## JS Dependencies handling
 
 # pull in all the dependencies
+cp src/js/jqbinding.js $DEP
 cp vendor/jquery-1.12.4/jquery-1.12.4.min.js $DEP
 cp $EDGES/vendor/d3-3.5.17/d3.min.js $DEP
 cp $EDGES/vendor/nvd3-1.8.1/nv.d3.js $DEP
@@ -82,6 +85,7 @@ cp $EDGES/vendor/loading-bar/loading-bar.min.js $DEP
 
 # combine all the dependencies into a single file in the right order (with jquery)
 cat $DEP/jquery-1.12.4.min.js <(echo) \
+    $DEP/jqbinding.js <(echo) \
     $DEP/d3.min.js <(echo) \
     $DEP/nv.d3.js <(echo) \
     $DEP/papaparse.min.js <(echo) \
@@ -89,7 +93,8 @@ cat $DEP/jquery-1.12.4.min.js <(echo) \
     > $MDEP
 
 # combine all the dependencies into a single file in the right order (without jquery)
-cat $DEP/d3.min.js <(echo) \
+cat $DEP/jqbinding.js <(echo) \
+    $DEP/d3.min.js <(echo) \
     $DEP/nv.d3.js <(echo) \
     $DEP/papaparse.min.js <(echo) \
     $DEP/loading-bar.min.js <(echo) \

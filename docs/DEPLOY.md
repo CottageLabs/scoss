@@ -72,6 +72,7 @@ A full page which implements the data visualisation looks as follows:
     <script type="text/javascript" src="/release/scoss.min.js"></script>
     
     <script type="application/javascript">
+        window.$||(window.$=jQuery);
         jQuery(document).ready(function($) {
             scoss.makeServiceProviderPage({
                 selector: "#service_provider_page",
@@ -128,6 +129,7 @@ following HTML fragment:
     </div></div>
     
     <script type="application/javascript">
+        window.$||(window.$=jQuery);
         jQuery(document).ready(function($) {
             scoss.makeServiceProviderPage({
                 selector: "#service_provider_page",
@@ -153,6 +155,7 @@ The data visualisation is triggered by the function **scoss.makeServiceProviderP
 loads using jQuery:
 
     jQuery(document).ready(function($) {
+        window.$||(window.$=jQuery);
         scoss.makeServiceProviderPage({...});
     });
 
@@ -172,6 +175,7 @@ For example, the following fragment renders the visualisation into the div with 
 data on a local machine.  It is providing the report for Sherpa Romeo, and the number of donors to display in the top donor list is 5:
 
     jQuery(document).ready(function($) {
+        window.$||(window.$=jQuery);
         scoss.makeServiceProviderPage({
             selector: "#service_provider_page",
             service_registry : "https://sparceurope.org/sparcgdocs/feed/1",
@@ -249,6 +253,7 @@ You will see a section of the page HTML which looks as follows:
 
     <script type="application/javascript">
         jQuery(document).ready(function($) {
+            window.$||(window.$=jQuery);
             scoss.makeServiceProviderPage({
                 selector: "#service_provider_page",
                 service_registry : "https://sparceurope.org/sparcgdocs/feed/1",
@@ -264,6 +269,7 @@ as follows:
 
     <script type="application/javascript">
         jQuery(document).ready(function($) {
+            window.$||(window.$=jQuery);
             scoss.makeServiceProviderPage({
                 selector: "#service_provider_page",
                 service_registry : "https://sparceurope.org/sparcgdocs/feed/1",
