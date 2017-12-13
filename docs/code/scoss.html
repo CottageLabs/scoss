@@ -391,7 +391,7 @@ Resulting data series is of the form
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line348">line 348</a>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line359">line 359</a>
     </li></ul></dd>
     
 
@@ -430,6 +430,163 @@ Resulting data series is of the form
     <dd>
         
 <span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".continentPercentFormatterClosure"><span class="type-signature">(static) </span>continentPercentFormatterClosure<span class="signature">(selector)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Closure which returns a function that can format the value to be assigned to the continent
+pie chart.
+
+This needs to access the <a href="scoss.html#.activeEdges">scoss.activeEdges</a> element with the passed selector, so it
+can access additional data about the chart which is not passed in when the dataFunction is
+called by the chart.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the jQuery selector where the Edge was initialised</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line66">line 66</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    a function which will format the display value for the continent pie chart
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
 
 
     </dd>
@@ -569,7 +726,7 @@ Resulting data series is of the form
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line301">line 301</a>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line312">line 312</a>
     </li></ul></dd>
     
 
@@ -1278,7 +1435,7 @@ This function is responsible for triggering the load of the service provider and
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line453">line 453</a>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line464">line 464</a>
     </li></ul></dd>
     
 
@@ -1414,7 +1571,7 @@ prototypes
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line692">line 692</a>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line706">line 706</a>
     </li></ul></dd>
     
 
@@ -1617,7 +1774,7 @@ prototypes
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line618">line 618</a>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line632">line 632</a>
     </li></ul></dd>
     
 
@@ -1823,7 +1980,7 @@ required for the entire visualisation.  The resulting aggregations are written i
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line84">line 84</a>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line95">line 95</a>
     </li></ul></dd>
     
 
@@ -2028,7 +2185,7 @@ provider record into edge.resources.service_provider
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line162">line 162</a>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line173">line 173</a>
     </li></ul></dd>
     
 
@@ -2188,7 +2345,7 @@ and the target as "x" and "y" respectively, so you can say Z% (X of Y).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line191">line 191</a>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line202">line 202</a>
     </li></ul></dd>
     
 
@@ -2347,7 +2504,7 @@ and the target as "x" and "y" respectively, so you can say Z% (X of Y).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line262">line 262</a>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line273">line 273</a>
     </li></ul></dd>
     
 
@@ -2507,7 +2664,7 @@ and the target as "x" and "y" respectively, so you can say Z% (X of Y).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line227">line 227</a>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line238">line 238</a>
     </li></ul></dd>
     
 
@@ -2732,7 +2889,7 @@ Resulting data series is of the form
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line400">line 400</a>
+        <a href="scoss_edges.js.html">scoss_edges.js</a>, <a href="scoss_edges.js.html#line411">line 411</a>
     </li></ul></dd>
     
 
@@ -2804,7 +2961,7 @@ Resulting data series is of the form
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Nov 29 2017 17:46:11 GMT+0000 (GMT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Dec 13 2017 10:14:05 GMT+0000 (GMT)
 </footer>
 
 <script> prettyPrint(); </script>
