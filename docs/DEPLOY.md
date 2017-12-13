@@ -149,6 +149,40 @@ The most important bits of this page are the div with id "serivice_provider_page
 fragment beneath it.  The next section describes how this javascript works.
 
 
+### Example full page from WordPress Test site
+
+Below is the full HTML content of a page on the SCOSS WordPress site which implements the DOAJ visualisation.
+
+    <link rel="stylesheet" href="https://sparceurope.org/test2017/wp-content/uploads/2017/12/scoss.dep_.css">
+    <link rel="stylesheet" href="https://sparceurope.org/test2017/wp-content/uploads/2017/12/scoss.min_.css">
+
+    <div class="container"><div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <p><a href="/test2017/doaj">DOAJ</a> | <a href="/test2017/romeo">ROMEO</a></p>
+                <h1>Directory of Open Access Journals</h1>
+                <p>Some blurb here about the DOAJ.</p>
+            </div>
+        </div>
+        <div id="service_provider_page"></div>
+    </div></div>
+
+    <script type="text/javascript" src="https://sparceurope.org/test2017/wp-content/uploads/2017/12/scoss.dep_.nojq_.js"></script>
+    <script type="text/javascript" src="https://sparceurope.org/test2017/wp-content/uploads/2017/12/scoss.min_.js"></script>
+
+    <script type="application/javascript">
+        jQuery(document).ready(function($) {
+            window.$||(window.$=jQuery);
+            scoss.makeServiceProviderPage({
+                selector: "#service_provider_page",
+                service_registry : "https://sparceurope.org/sparcgdocs/feed/1",
+                master_data : "https://sparceurope.org/sparcgdocs/feed/2",
+                service_id : "DOAJ",
+                top_donor_limit: 10
+            });
+        });
+    </script>
+
 ## Customising the deployment javascript
 
 The data visualisation is triggered by the function **scoss.makeServiceProviderPage**, which is invoked when the page
