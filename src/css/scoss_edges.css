@@ -35,7 +35,6 @@
 }
 
 .edges-bs3-tabular-results-table thead {
-    /* background: #cccccc; */
     background: #49474d;
     color: #ffffff;
 }
@@ -50,4 +49,11 @@
 
 .edges-bs3-tabular-results-header-Committed {
     text-align: right;
+}
+
+.edges-bs3-tabular-results-no-results {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
 }

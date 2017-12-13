@@ -49,8 +49,10 @@ jQuery(document).ready(function($) {
     window.$||(window.$=jQuery);
     scoss.makeServiceProviderPage({
         selector: "#service_provider_page",
-        service_registry : "http://localhost:8000/data/testservice.csv",
-        master_data : "http://localhost:8000/data/testmaster.csv",
+        //service_registry : "http://localhost:8000/data/testservice.csv",
+        //master_data : "http://localhost:8000/data/testmaster.csv",
+        service_registry : "http://localhost:8000/data/service_providers_min.csv",
+        master_data : "http://localhost:8000/data/master_min.csv",
         service_id : "DOAJ",
         top_donor_limit: 10
     });

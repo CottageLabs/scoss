@@ -52,6 +52,17 @@ var scoss = {
         thousandsSeparator: ","
     }),
 
+    /**
+     * Closure which returns a function that can format the value to be assigned to the continent
+     * pie chart.
+     *
+     * This needs to access the {@link scoss.activeEdges} element with the passed selector, so it
+     * can access additional data about the chart which is not passed in when the dataFunction is
+     * called by the chart.
+     *
+     * @param selector  the jQuery selector where the Edge was initialised
+     * @returns {Function}  a function which will format the display value for the continent pie chart
+     */
     continentPercentFormatterClosure : function(selector) {
         return function(val) {
             var edge = scoss.activeEdges[selector];
@@ -557,7 +568,8 @@ var scoss = {
                         yTickFormat: scoss.currencyFormatter,
                         valueFormat: scoss.currencyFormatter,
                         yAxisLabel: "Total Funding (EUR)",
-                        color: [scoss.theme.dark_blue]
+                        color: [scoss.theme.dark_blue],
+                        noDataMessage: "No country data currently available"
                     })
                 }),
 
@@ -566,10 +578,10 @@ var scoss = {
                     id : "by_continent",
                     dataFunction: scoss.continentDF,
                     renderer : edges.nvd3.newPieChartRenderer({
-                        // valueFormat: scoss.currencyFormatter,
                         valueFormat: scoss.continentPercentFormatterClosure(params.selector),
                         labelsOutside: true,
-                        color: scoss.theme.pie_colours
+                        color: scoss.theme.pie_colours,
+                        noDataMessage: "No continent data currently available"
                     })
                 }),
 
@@ -587,7 +599,8 @@ var scoss = {
                         yTickFormat: scoss.currencyFormatter,
                         valueFormat: scoss.currencyFormatter,
                         yAxisLabel: "Total Funding (EUR)",
-                        color: [scoss.theme.light_blue]
+                        color: [scoss.theme.light_blue],
+                        noDataMessage: "No donor/crowdfunder data currently available"
                     })
                 }),
 
@@ -600,7 +613,8 @@ var scoss = {
                         fieldDisplay: [
                             {field: "donor", display: "Donor/Member"},
                             {field: "committed", display: "Committed", valueFunction: scoss.euroFormatter}
-                        ]
+                        ],
+                        noResultsText: "No donor/crowdfunder data currently available"
                     })
                 })
             ]
