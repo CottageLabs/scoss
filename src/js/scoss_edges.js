@@ -37,7 +37,8 @@ var scoss = {
      */
     euroFormatter : edges.numFormat({
         prefix: "&euro;",
-        thousandsSeparator: ","
+        thousandsSeparator: ",",
+        decimalPlaces: 0,
     }),
 
     /**
@@ -49,7 +50,8 @@ var scoss = {
      */
     currencyFormatter : edges.numFormat({
         prefix: "€",
-        thousandsSeparator: ","
+        thousandsSeparator: ",",
+        decimalPlaces: 0
     }),
 
     /**
