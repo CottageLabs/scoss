@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SCOSS Testing Site - DOAJ</title>
+    <title>SCOSS Testing Site - PKP</title>
 
     <link rel="stylesheet" href="/vendor/edges/vendor/bootstrap-3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/vendor/edges/vendor/nvd3-1.8.1/nv.d3.css">
@@ -17,9 +17,8 @@
 <div class="container"><div class="content">
     <div class="row">
         <div class="col-md-12">
-            <p><a href="doaj.html">DOAJ</a> | <a href="romeo.html">ROMEO</a></p>
-            <h1>Directory of Open Access Journals</h1>
-            <p>Some blurb here about the DOAJ.</p>
+            <h1>PKP</h1>
+            <p>Some blurb here about PKP.</p>
         </div>
     </div>
     <div id="service_provider_page"></div>
@@ -51,7 +50,7 @@ jQuery(document).ready(function($) {
         selector: "#service_provider_page",
         service_registry : "http://localhost:8000/data/testservice.csv",
         master_data : "http://localhost:8000/data/testmaster.csv",
-        service_id : "DOAJ",
+        service_id : "PKP",
         top_donor_limit: 10
     });
 });
