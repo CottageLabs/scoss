@@ -25,13 +25,9 @@ see BUILD.md
 
 ## Entry Points
 
-In the root of the project are four HTML files, which can be used for testing:
+In the root of the project are HTML files, which can be used for testing:
 
-* doaj.html - a page set up for developers, with all unminified dependencies included,
-which renders the DOAJ report
-* romeo.html - a page set up for developers, with all unminified dependencies included,
-which renders the Sherpa/Romeo report
-* doaj_build.html - a page set up to demonstrate deployment of the software using the 
-compiled assets, which renders the DOAJ report.
-* romeo_build.html - a page set up to demonstrate deployment of the software using the 
-compiled assets, which renders the Sherpa/Romeo report.
+* [service].html - a page set up for developers, with all unminified dependencies included,
+which renders the service's report
+* [service]_build.html - a page set up to demonstrate deployment of the software using the 
+compiled assets, which renders the service's report.

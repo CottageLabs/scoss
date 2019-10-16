@@ -32,13 +32,19 @@ https://docs.google.com/spreadsheets/d/e/2PACX-1vSKc5TwvLSfWvMsR78f8Vukfcs4quc2-
 Current Proxy URL: https://sparceurope.org/sparcgdocs/feed/1
 
 
-* The Master Data:
+* The Master Data for DOAJ and SHERPA/RoMEO:
 https://docs.google.com/spreadsheets/d/e/2PACX-1vSYajOCI-_ZxRnFupQVNsOpmnL98wi06OmonQGoG01TZ4rx1atv-ShQzxKEVSE0vrjpzB3u2TwiAykj/pub?gid=1249817261&single=true&output=csv
 
 Current Proxy URL: https://sparceurope.org/sparcgdocs/feed/2
 
+* The Master Data for DOAB/OAPEN, OpenCitations, and PKP:
 
-We will use the localised versions of these URLs later when we configure the visualisation:
+https://docs.google.com/spreadsheets/d/e/2PACX-1vTxP-12HxOLl69tCw9c7nmvnxIK8iPMfZmSFKzGPiQIcx4InFmYXpeewHFn5cK73exowPG1Df4rDCRI/pub?output=csv
+
+Current Proxy URL: TBC
+
+
+We will use the localised versions of these URLs later when we configure the visualisation.
 
 
 ## Page Template
