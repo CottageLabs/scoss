@@ -1,3 +1,6 @@
 Service ID,Service Full Name,Service Acronym,Contact Name,Contact Email,Service Country,Service URL,Funding Target (EUR)
-DOAJ,Directory of Open Access Journals,DOAJ,Dominic,dom@example.com,United Kingdom,https://doaj.org,"20,000,000.00"
-SHERPA/RoMEO,Sherpa Romeo,ROMEO,Bob,bob@example.com,United States,http://sherpa.ac.uk/romeo,"15,000,000.00"
+DOAJ,Directory of Open Access Journals,DOAJ,Mr DOAJ,doaj@example.com,Denmark,https://doaj.org,"5,000,000.00"
+SHERPA/RoMEO,SHERPA/RoMEO,SHERPA/RoMEO,A Sherpa,sherpa@example.com,United Kingdom,http://www.sherpa.ac.uk/romeo/index.php,"5,000,000.00"
+DOAB/OAPEN,DOAB and OAPEN,DOAB and OAPEN,AN Open,oapen@example.com,Netherlands,http://oapen.org,"5,000,000.00"
+OpenCitations,OpenCitations,OpenCitations,OC Itations,opencitations@example.com,United Kingdom,http://opencitations.net/,"5,000,000.00"
+PKP,Public Knowledge Project,PKP,P.K. P,pkp@example.com,Canada,https://pkp.sfu.ca/,"5,000,000.00"
